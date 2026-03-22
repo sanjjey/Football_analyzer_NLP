@@ -14,12 +14,37 @@ The pipeline utilizes transcript files (`1_asr.json` and `2_asr.json`) sourced f
 
 ---
 
-## ✨ Key Features
-* **LLM-Powered Insights:** Employs Llama-3.3-70b to interpret nuance in commentary, identifying possession shifts, match sentiment, and key events (shots, fouls, goals).
-* **Automated Heatmaps:** Translates possession and action data into spatial pitch visualizations using `mplsoccer`.
-* **Data Verification Engine:** A robust `DataVerifier` class acts as a guardrail, cross-checking LLM outputs for mathematical consistency (e.g., ensuring total possession equals 100%) and logical soundness.
-* **Structured Logging:** Generates a clean Pandas DataFrame of the match timeline and a `verification_log.csv` to track AI accuracy.
+## 🧠 NLP & LLM Contributions
 
+The core intelligence of this pipeline relies on Advanced Natural Language Processing (NLP) to bridge the gap between spoken commentary and structured data.
+
+### 1. Semantic Context Extraction
+Unlike simple keyword matching, the NLP engine understands the **context** of football phrases. 
+* *Example:* It distinguishes between "finding the net" (a goal) and "hitting the side netting" (a miss), which traditional parsers might confuse.
+
+### 2. Entity & Event Recognition
+The pipeline performs **Named Entity Recognition (NER)** on the fly to identify:
+* **Players & Teams:** Mapping names mentioned in ASR to the active squads.
+* **Spatial Indicators:** Extracting phrases like "down the left wing" or "inside the box" to provide coordinates for heatmap generation.
+
+### 3. Sentiment & Intensity Analysis
+Using the **Llama-3.3-70b** model via Groq, the system performs a dual-layer sentiment analysis:
+* **Match Tone:** Is the game "stagnant," "end-to-end," or "aggressive"?
+* **Crowd/Commentator Bias:** Detecting shifts in excitement levels to identify "High-Pressure" moments automatically.
+
+### 4. Sentiment Extraction (VADER-NLP)
+The crowd intensity, the momentum flow and the total sentiment score is analyzed using a NLP based lexicon based model called VADER which calculates the sentiments separately and generates the score according to the particular segment of time.
+
+### 5. Temporal Reasoning (Time-Series NLP)
+The pipeline synchronizes disjointed ASR chunks into a linear narrative. It uses **Temporal Reasoning** to decide if a possession started in one text segment and concluded in another, ensuring the 100% possession logic holds true across timestamps.
+
+---
+
+## ✨ Key Features
+* **LLM-Powered Insights:** Uses Large Language Models to read commentary and deduce which team holds possession, the sentiment of the match, and key events (shots, fouls, goals).
+* **Automated Heatmaps:** Translates NLP-extracted spatial data into density visualizations using `mplsoccer`.
+* **Data Verification Engine:** Includes a robust `DataVerifier` class that acts as a guardrail. It cross-checks the LLM's output for mathematical consistency and logical soundness.
+* **Structured Logging:** Outputs a clean Pandas DataFrame of the match timeline and a `verification_log.csv` detailing the AI's accuracy and consistency.
 ---
 
 ## 🧠 Pipeline Architecture
