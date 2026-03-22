@@ -11,7 +11,7 @@ This project processes unstructured **ASR (Automatic Speech Recognition)** comme
 The pipeline utilizes transcript files (`1_asr.json` and `2_asr.json`) sourced from the **SoccerNet-Echoes** dataset.
 * **Content:** Time-stamped text of live commentator speech.
 * **Processing:** The pipeline segments these transcripts into dynamic time intervals to analyze the match chronologically.
-
+Link: [Dataset](https://github.com/SoccerNet/sn-echoes/tree/main/Dataset)
 ---
 
 ## 🧠 NLP & LLM Contributions
